@@ -4,7 +4,7 @@ from django.conf import settings
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import Context
 from django.views.decorators.cache import never_cache
-from models import Article, StaticPage, InfoPage, Author, Tag, Image
+from models import Article, StaticPage, InfoPage, Tag, Image
 import simplejson as json
 import views
 
