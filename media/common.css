@@ -150,15 +150,6 @@ p {
   border-radius: 5px;
 }
 
-.beta {
-  font-size: 12pt;
-  text-transform: uppercase;
-  position: relative;
-  display: none;
-  top: 9pt;
-  left: 5pt;
-}
-
 .alist {
   margin: 1em;
   font-size: 10pt;
