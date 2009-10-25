@@ -35,6 +35,8 @@ def _preview_infopage(request, object_id):
     page = get_object_or_404(InfoPage, id=object_id)
     if page.slug == 'staff':
         return test(views.staff_auto_infopage)(request)
+    elif page.slug == 'all-staff':
+        return test(views.all_authors)(request)
     else:
         return test(views.infopage)(request, page.slug)
 
