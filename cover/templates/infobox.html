@@ -1,7 +1,7 @@
 <table id="infoboxall" width="100%">
 <tr>
 	<td id="infobox">
-	{% block text %}Showing only articles by {% endblock %}{{ author }}{% if author.title %} ({{ author.title }}){% endif %}
+	{% block text %}{% if author.article_set.all %}Showing only articles by {% endif %}{% endblock %}{{ author }}{% if author.title %} ({{ author.title }}){% endif %}
 	<div class="author_info">
 	{% with author.grouping.all as authors %}
 	{% include "author.html" %}
