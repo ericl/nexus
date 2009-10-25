@@ -352,9 +352,9 @@ ul#dates, ul#gridtypes {
   margin-top: .3em;
 }
 
-#signed {
+#signed, #signed a {
   clear: both;
-  color: #eee;
+  color: #ddd;
   text-align: right;
 }
 
