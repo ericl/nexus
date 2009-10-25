@@ -1,9 +1,9 @@
 import Image
 from django.conf import settings
 from os.path import basename, dirname, exists, getmtime
-from os import makedirs, remove, devnull
+from os import makedirs, remove
 from django.forms import ValidationError
-from subprocess import call, PIPE
+from subprocess import call
 
 JOIN_PATH = 'cache/pdf_joins/'
 THUMBS_PATH = 'cache/pdf_thumbs/'
@@ -30,37 +30,40 @@ def __imagemagick_thumbnailer(input, output, size):
     image.save(output, 'JPEG', quality=95)
     remove(swap)
 
-def __evince_thumbnailer(input, output, size):
-    """Evince backend for thumbnailing a PDF."""
-    swap = mktemp(output)
-    call(NICE + ('evince-thumbnailer', '-s', str(size), input, swap))
-    image = Image.open(swap) # resize AGAIN to produce consistent sizes
-    image = image.convert('RGBA')
-    image.thumbnail((size,2048), Image.ANTIALIAS)
-    image.save(output, 'JPEG', quality=95)
-    remove(swap)
+#def __evince_thumbnailer(input, output, size):
+#    """Evince backend for thumbnailing a PDF."""
+#    swap = mktemp(output)
+#    call(NICE + ('evince-thumbnailer', '-s', str(size), input, swap))
+#    image = Image.open(swap) # resize AGAIN to produce consistent sizes
+#    image = image.convert('RGBA')
+#    image.thumbnail((size,2048), Image.ANTIALIAS)
+#    image.save(output, 'JPEG', quality=95)
+#    remove(swap)
+#
+#try:
+#    from os import devnull
+#    call(('evince-thumbnailer', devnull, devnull))
+#    __thumbnail_backend = __evince_thumbnailer
+#except OSError:
+#    __thumbnail_backend = __imagemagick_thumbnailer
 
-try:
-    call(('evince-thumbnailer', devnull, devnull))
-    __thumbnail_backend = __evince_thumbnailer
-except OSError:
-    __thumbnail_backend = __imagemagick_thumbnailer
+__thumbnail_backend = __imagemagick_thumbnailer
 
-def __pdftk_join(inputs, output):
-    try:
-        call(('pdftk',) + tuple(inputs) + ('cat', 'output', output))
-    except EnvironmentError:
-        pass
+#from subprocess import PIPE
+#def __pdftk_join(inputs, output):
+#    call(('pdftk',) + tuple(inputs) + ('cat', 'output', output))
 
 def __pypdf_join(inputs, output):
-    # XXX avoid memory leaks
+    # run in another process to avoid memory leaks
     call((dirname(__file__) + '/pypdf_join', output) + tuple(inputs))
 
-try:
-    call('pdftk', stdout=PIPE)
-    __join_backend = __pdftk_join
-except OSError:
-    __join_backend = __pypdf_join
+#try:
+#    call('pdftk', stdout=PIPE)
+#    __join_backend = __pdftk_join
+#except OSError:
+#    __join_backend = __pypdf_join
+
+__join_backend = __pypdf_join
 
 def validate_pdf(in_memory_uploaded_file):
     ext_ok = in_memory_uploaded_file.name.endswith('.pdf')
@@ -105,8 +108,5 @@ def pdf_to_thumbnail(input, size):
         return url
     if not exists(dirname(output)):
         makedirs(dirname(output))
-    try:
-        __thumbnail_backend(input, output, size)
-    except EnvironmentError:
-        pass
+    __thumbnail_backend(input, output, size)
     return url
