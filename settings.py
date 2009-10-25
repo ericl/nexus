@@ -1,5 +1,9 @@
 import os
 
+# set to True if you have all the media
+# suppresses errors about missing files otherwise
+DEBUG_MEDIA = False
+
 # all True in development
 DEBUG = True
 STATIC_SERVE = True

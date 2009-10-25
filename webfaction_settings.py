@@ -2,6 +2,7 @@ import os
 
 # all False in production
 DEBUG = False
+DEBUG_MEDIA = False
 STATIC_SERVE = False
 DISABLE_GOOGLE = False
 

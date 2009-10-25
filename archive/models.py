@@ -15,7 +15,7 @@ def ignore_errors(f):
             return f(*args)
         except:
             return None
-    return f if settings.DEBUG else _f
+    return f if settings.DEBUG_MEDIA else _f
 
 class File(models.Model):
     file = models.FileField(upload_to=FILE_PATH)
