@@ -130,11 +130,6 @@ $(document).ready(function() {
 		State.scrollup();
 	});
 
-	$(".author_more_info").live("click", function(event) {
-		event.preventDefault();
-		$(".author_info").toggle();
-	});
-
 	$(".clearinfobox").live("click", function(event) {
 		State.sync({'author': '', 'page': 1}, {'link': $(this)});
 	});

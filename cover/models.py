@@ -325,7 +325,7 @@ class InfoPage(models.Model):
     title = models.CharField(max_length=100)
     link_name = models.CharField(max_length=20)
     slug = models.SlugField(max_length=20, unique=True,
-        help_text="Note: choosing 'staff' will create a page auto-filled by current staff.")
+        help_text="Note: choosing 'staff' will create a page auto-filled by current staff; 'all-staff' will create one with former staff as well.")
     order = models.IntegerField(default=0, help_text="Order of display in footer.")
     show_in_footer = models.BooleanField(default=True)
     fulltext = models.TextField(blank=True, null=True)

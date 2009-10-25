@@ -1,7 +1,8 @@
 {% extends "basic.html" %}
 
 {% block content %}
-<a class="embeddable" style="font-size: 10pt; position: relative; top:-20pt" id="switch" href="/archive">Front Covers</a>
+<div style="position: relative; top: -20pt; font-family: sans">
+	<a class="embeddable" id="switch" href="/archive"><input type=checkbox checked=true></input></a><span style="font-size: 10pt">Show back covers</span></div>
 {% spaceless %}
     {% for year in years %}
         <div class="yearblock">

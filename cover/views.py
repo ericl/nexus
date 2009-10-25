@@ -197,6 +197,24 @@ def tagpage(request, slug):
     articles = visible(tag.article_set).filter(image_centric=False)
     return render_json(tag.name, 'tag.html', locals())
 
+def all_authors(request):
+    MEDIA_URL = settings.MEDIA_URL
+    FOOTER = InfoPage.objects.all();
+    info = get_object_or_404(InfoPage, slug='all-staff')
+    pool = Author.objects.all()
+    titles = []
+    groups = []
+    for t in Title.objects.all():
+        authors_for_title = [ [author, []] for author in pool.filter(title=t) ]
+        if authors_for_title:
+            titles.append((t.plural_form if len(authors_for_title) > 1 and t.plural_form else t, authors_for_title))
+            for author in authors_for_title:
+                for group in author[0].grouping.all():
+                    if group not in groups:
+                        groups.append(group)
+                    author[1].append(groups.index(group) + 1)
+    return render_json(info.title, 'staff.html', locals())
+
 def authorimages(request, slug):
     FOOTER = InfoPage.objects.all();
     MEDIA_URL = settings.MEDIA_URL

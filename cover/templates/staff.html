@@ -10,6 +10,15 @@
             <li style="border:0;padding:1px"><a data-slug="{{ author.slug }}" class="authorlink" href="#author={{ author.slug }}">
             {{ author }}</a>
 			{% for n in groups %}<sup>{{ n }}</sup>{% endfor %}
+            <small>
+                {% if author.retired %}
+                    {% if author.year %}
+                        (year of {{ author.year }})
+                    {% else %}
+                        (retired)
+                    {% endif %}
+                {% endif %}
+            </small>
             </li>
         </ul>
         {% endfor %}
