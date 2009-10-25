@@ -1,6 +1,6 @@
 Dependencies:
 
-  python-django 1.0.x
+  python-django >= 1.0
   python-django-evolution
   python-imaging
   python-markdown
