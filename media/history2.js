@@ -102,3 +102,5 @@ History.put = function(hash) {
 		iframe.location.hash = hash;
 	}
 };
+
+// vim: noet ts=4

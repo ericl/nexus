@@ -115,3 +115,4 @@ Repr.deserialize = function(hash) {
 	}
 	return new Repr(attrs);
 };
+

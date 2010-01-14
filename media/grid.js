@@ -263,3 +263,5 @@ $(document).ready(function() {
 		});
 	}
 });
+
+// vim: noet ts=4
