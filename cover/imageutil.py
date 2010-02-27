@@ -78,7 +78,7 @@ def get_right_size(obj, classes):
 
 class ImageFormatter():
     IMAGE_TEMPLATE = 'image.html'
-    IMAGE_TAG = re.compile(r'\[\[[:\-_a-z0-9]+]]')
+    IMAGE_TAG = re.compile(r'\[\[[:\-_a-zA-Z0-9]+]]')
 
     def __init__(self, html, img_objs):
         self.html = html
