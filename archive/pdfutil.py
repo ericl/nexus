@@ -8,6 +8,7 @@ from subprocess import call
 JOIN_PATH = 'cache/pdf_joins/'
 THUMBS_PATH = 'cache/pdf_thumbs/'
 NICE = ('nice','-n15') # thumbnailing pdfs eats cpu
+GS_ARGS = ['-dTextAlphaBits=4', '-dGraphicsAlphaBits=4', '-dNOPAUSE', '-dBATCH', '-sDEVICE=jpeg', '-dJPEGQ=90', '-r20', '-c', 'save pop currentglobal true setglobal false/product where{pop product(Ghostscript)search{pop pop pop revision 600 ge{pop true}if}{pop}ifelse}if{/pdfdict where{pop pdfdict begin/pdfshowpage_setpage[pdfdict/pdfshowpage_setpage get{dup type/nametype eq{dup/OutputFile eq{pop/AntiRotationHack}{dup/MediaBox eq revision 650 ge and{/THB.CropHack{1 index/CropBox pget{2 index exch/MediaBox exch put}if}def/THB.CropHack cvx}if}ifelse}if}forall]cvx def end}if}if setglobal', '-f']
 
 def nameof(path):
     """Returns file basename stripped of file extension."""
@@ -24,6 +25,9 @@ def __imagemagick_thumbnailer(input, output, size):
     """Imagemagick backend for thumbnailing a PDF."""
     swap = mktemp(output)
     call(NICE + ('convert', input, swap))
+    if not exists(swap):
+        command = ['gs', '-sOutputFile=%s' % swap] + GS_ARGS + [input]
+        call(command)
     image = Image.open(swap) # resize AGAIN to produce consistent sizes
     image = image.convert('RGBA')
     image.thumbnail((size,2048), Image.ANTIALIAS)
