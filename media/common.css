@@ -200,12 +200,9 @@ blockquote, q {
 
 h1, h1 a {
   font-family: helvetica;
-  font-size: 35pt;
+  font-size: 38pt;
   font-weight: bold;
   letter-spacing: 0.8pt;
-  padding-left: 4pt;
-  padding-top: 8pt;
-  padding-bottom: 0;
   background-color: #007cb0;
   color: white;
   height: 1.5em;
