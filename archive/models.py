@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import ValidationError
 from django.conf import settings
 from django.contrib import admin
 from django.db import models
@@ -22,6 +23,15 @@ class File(models.Model):
 
     def __str__(self):
         return "%s%s" % (settings.MEDIA_URL, self.file)
+
+class FileAdminForm(forms.ModelForm):
+    def clean_file(self):
+        if self.instance.file:
+            raise ValidationError("Files are read-only once uploaded.")
+        return self.cleaned_data['file']
+
+class FileAdmin(admin.ModelAdmin):
+    form = FileAdminForm
 
 class PDF(models.Model):
     order = models.IntegerField(default=0)
