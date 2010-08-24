@@ -24,10 +24,11 @@ class File(models.Model):
     def __str__(self):
         return "%s%s" % (settings.MEDIA_URL, self.file)
 
+# this only exists because of the HEADER.png special case and django's file replacement policy
 class FileAdminForm(forms.ModelForm):
     def clean_file(self):
         if self.instance.file:
-            raise ValidationError("Files are read-only once uploaded.")
+            raise ValidationError("Files are read-only once uploaded. Please delete this file and reupload.")
         return self.cleaned_data['file']
 
 class FileAdmin(admin.ModelAdmin):
