@@ -16,7 +16,7 @@ try {
 	google.setOnLoadCallback(function() {
 		searchControl = new google.search.SearchControl();
 		var siteSearch = new google.search.WebSearch();
-		siteSearch.setSiteRestriction("http://wvnexus.com");
+		siteSearch.setSiteRestriction("http://nexus.webfactional.com");
 		siteSearch.setUserDefinedLabel("The Nexus");
 		var options = new google.search.SearcherOptions();
 		options.setRoot(document.getElementById("search_results"));
@@ -51,8 +51,12 @@ function setVisible(str) {
 		else
 			$('.' + key).hide();
 	}
-	if (google_ok && str != 'search')
+	if (google_ok && str != 'search') {
 		searchControl.clearAllResults();
+		$("#search_results").hide();
+	} else {
+		$("#search_results").show();
+	}
 	if (str != 'embed') // e.g. wipe out #authorslug
 		$("#embedded_content").html('You should not see this.');
 }
