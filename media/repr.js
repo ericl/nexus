@@ -58,6 +58,10 @@ function Repr(dict) {
 		return 'Repr Object ' + this.serialize();
 	};
 
+	this.isCover = function() {
+		return this.serialize() === "#page=1";
+	}
+
 	this.serialize = function(nav_attrs_only) {
 		var output = [];
 		var have_embed = false;

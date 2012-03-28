@@ -42,7 +42,7 @@ function is_nonlocal(event) {
 	|| (!$.browser.msie && event.button !== 0); // don't need check for IE?
 }
 
-function setVisible(str) {
+function setVisible(str, results_header) {
 	var types = ['embed', 'search', 'results'];
 	for (var i in types) {
 		key = types[i];
@@ -50,6 +50,11 @@ function setVisible(str) {
 			$('.' + key).show();
 		else
 			$('.' + key).hide();
+	}
+	if (results_header) {
+		$("#results_header").show();
+	} else {
+		$("#results_header").hide();
 	}
 	if (google_ok && str != 'search') {
 		searchControl.clearAllResults();
@@ -176,7 +181,7 @@ function State(repr, config) {
 				State.cached[repr] = data;
 			}
 			if (!just_url_update) {
-				setVisible("results");
+				setVisible("results", repr.isCover());
 				State.release_request();
 			}
 		}

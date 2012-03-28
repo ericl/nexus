@@ -37,6 +37,13 @@ window.STATIC_COVER = true;
 }
 </style>
 <![endif]-->
+{% if not articles %}
+<style type="text/css">
+.results_header {
+    display: none;
+}
+</style>
+{% endif %}
 {% if content %}
 <style type="text/css">
 .results {
@@ -86,6 +93,9 @@ window.STATIC_COVER = true;
   <div class="paginator results" id="top_paginator">{% include "paginator.html" %}</div>
   <div id="search_results" style="width:100%"></div>
   <div class="search" style="display:none"><br><br></div>
+  <div id="results_header" class="results_header">
+  <a href="#/archive/current">{% include "issuethumbs.html" %}</a>
+  </div>
   <ul id="results" class="results">
     {% for article in articles %}
         {% include "article_snippet.html" %}

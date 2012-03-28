@@ -243,6 +243,12 @@ $(document).ready(function() {
 		}
 	});
 
+	$("#issue_thumbs").hover(function(event) {
+		$("#issue_thumbs").css('opacity', 0.9);
+	}, function(event) {
+		$("#issue_thumbs").css('opacity', 1.0);
+	});
+
 	$(document).mouseup(function(event) {
 		if (selecting_dates) {
 			selecting_dates = false;

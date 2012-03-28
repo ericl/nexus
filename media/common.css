@@ -106,6 +106,10 @@ a:hover {
   text-decoration: underline;
 }
 
+a:hover {
+  text-decoration: none !important;
+}
+
 .imgsnippet {
   max-height: 300px;
   width: auto;
@@ -373,10 +377,14 @@ ul#dates, ul#gridtypes {
   overflow: hidden;
 }
 
-#results, #bottom_paginator, #content, #fake_results {
+#results, #bottom_paginator, #content, #fake_results, #results_header {
   overflow: hidden;
   padding: 1.5em;
   padding-left: 1.7em;
+}
+
+#results_header {
+  padding-bottom: 0;
 }
 
 #fake_results {
