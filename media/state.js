@@ -10,31 +10,29 @@
 var NONE_VISIBLE="<li id=\"none-visible\"><h3>No matching articles.</h3>Select fewer tags to the left, or specify a wider range of dates.</li>";
 
 var google_ok = false;
+var customSearchControl;
 try {
-	google.load('search', '1.0');
-	var searchControl;
-	google.setOnLoadCallback(function() {
-		searchControl = new google.search.SearchControl();
-		var siteSearch = new google.search.WebSearch();
-		siteSearch.setSiteRestriction("http://nexus.webfactional.com");
-		siteSearch.setUserDefinedLabel("The Nexus");
-		var options = new google.search.SearcherOptions();
-		options.setRoot(document.getElementById("search_results"));
-		options.setExpandMode(google.search.SearchControl.EXPAND_MODE_OPEN);
-		searchControl.addSearcher(siteSearch, options);
-		searchControl.setResultSetSize(google.search.Search.LARGE_RESULTSET);
-		searchControl.draw(document.getElementById("searchcontrol"));
-		searchControl.setSearchStartingCallback(null, function(searchControl, searcher) {
-			setVisible("search"); // called early because the search bar is drawn early
-			if (State.query != searchControl.input.value) {
-				State.query = searchControl.input.value;
-				State.sync({'query': searchControl.input.value});
-			}
-		});
-		if (State.query) // was queued from page hash
-			searchControl.execute(State.query);
-		google_ok = true;
-	}, true);
+  google.load('search', '1', {language : 'en', style : google.loader.themes.V2_DEFAULT});
+  google.setOnLoadCallback(function() {
+    var customSearchOptions = {};
+    customSearchOptions['adoptions'] = {'layout': 'noTop'};
+    customSearchControl = new google.search.CustomSearchControl(
+      '016868299722656785726:1pwq3-dns8c', customSearchOptions);
+    customSearchControl.setResultSetSize(google.search.Search.FILTERED_CSE_RESULTSET);
+    var options = new google.search.DrawOptions();
+    options.setSearchFormRoot('cse-search-form');
+    customSearchControl.draw('cse', options);
+    customSearchControl.setSearchStartingCallback(null, function(searchControl, searcher) {
+        setVisible("search"); // called early because the search bar is drawn early
+        if (State.query != searchControl.input.value) {
+            State.query = searchControl.input.value;
+            State.sync({'query': searchControl.input.value});
+        }
+    });
+    if (State.query) // was queued from page hash
+        customSearchControl.execute(State.query);
+    google_ok = true;
+  }, true);
 } catch (e) { } // google_ok will then be false
 
 function is_nonlocal(event) {
@@ -57,10 +55,7 @@ function setVisible(str, results_header) {
 		$("#results_header").hide();
 	}
 	if (google_ok && str != 'search') {
-		searchControl.clearAllResults();
-		$("#search_results").hide();
-	} else {
-		$("#search_results").show();
+		customSearchControl.clearAllResults();
 	}
 	if (str != 'embed') // e.g. wipe out #authorslug
 		$("#embedded_content").html('You should not see this.');
@@ -223,7 +218,7 @@ function State(repr, config) {
 	State.select_dates(repr.date_min, repr.date_max);
 	if (repr.query) {
 		if (google_ok)
-			searchControl.execute(repr.query);
+			customSearchControl.execute(repr.query);
 		else {
 			// either google hasn't loaded
 			// or this is a initial page load
@@ -285,7 +280,7 @@ State.sync = function(overrides, config) {
 
 State.acquire_request = function() {
 	if (google_ok)
-		searchControl.cancelSearch();
+		customSearchControl.cancelSearch();
 	if (State.request) {
 		State.scroll_flag = false;
 		State.request.abort();

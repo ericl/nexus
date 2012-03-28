@@ -7,7 +7,7 @@ DEBUG_MEDIA = False
 # all True in development
 DEBUG = True
 STATIC_SERVE = True
-DISABLE_GOOGLE = True
+DISABLE_GOOGLE = False
 
 TEMPLATE_DEBUG = DEBUG
 if DEBUG:
@@ -21,7 +21,7 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'postgresql_psycopg2'
+DATABASE_ENGINE = 'sqlite3'
 DATABASE_NAME = 'nexus'
 DATABASE_USER = 'nexus'
 DATABASE_PASSWORD = 'asdf'

@@ -1,28 +1,5 @@
-#search_results .gs-webResult .gs-visibleUrl-short {
-  display: none;
-}
-
-#search_results .gs-webResult .gs-visibleUrl-long {
-  display: block;
-}
-
-#search_results .gs-snippet {
-  width: 550px;
-}
-
-#search_results {
-  overflow: hidden;
-  padding-left: 1.7em;
-  padding-right: 1em;
-  padding-top: .5em;
-  margin-bottom: -1em;
-}
-
-#searchcontrol {
-  margin-left: 270px;
-  margin-top: 10px;
-  margin-bottom: -25px;
-  height: 47px;
+.gsc-search-button {
+  margin-top: 0 !important;
 }
 
 #infoboxall {
@@ -106,7 +83,7 @@ a:hover {
   text-decoration: underline;
 }
 
-a:hover {
+#results_header a:hover {
   text-decoration: none !important;
 }
 
@@ -390,6 +367,7 @@ ul#dates, ul#gridtypes {
 #results_header {
   padding-bottom: 0;
   margin-bottom: -.5em;
+  margin-top: -35px;
 }
 
 #fake_results {
