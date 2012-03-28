@@ -13,10 +13,10 @@
 		{% endblock %}
 	</span>
 {% endblock %}
-
 {% block content %}
-	<br style="font-size: 5pt">
     {{ article.text|markdown }}
+	<hr color="#ddd" size="1">
+	{% include "articlelike.html" %}
 {% endblock %}
 
 {% block extra %}
