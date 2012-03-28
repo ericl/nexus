@@ -208,6 +208,10 @@ h2 {
   padding: 0;
 }
 
+#embedded_content {
+  margin-top: -8px;
+}
+
 #none-visible {
   color: #305cb6;
 }
@@ -367,7 +371,7 @@ ul#dates, ul#gridtypes {
 #results_header {
   padding-bottom: 0;
   margin-bottom: -.5em;
-  margin-top: -35px;
+  margin-top: -8px;
 }
 
 #fake_results {
