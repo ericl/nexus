@@ -145,11 +145,17 @@ $(document).ready(function() {
 	$("a.gs-title").live("click", function(event) {
 		if (is_nonlocal(event))
 			return;
-		if ($(this).attr("href").match(/\.[a-z]+$/)) {
+		var href = $(this).attr("href");
+		var stripped = href.match("q=([^&]*)");
+		if (stripped) {
+			href = stripped[1];
+		}
+		if (href.match(/\.[a-z]+$/)) {
 			$(this).attr("target", null);
 			return; // it's probably non-html
 		}
 		event.preventDefault();
+		$(this).attr("href", href);
 		syncForLink($(this));
 		State.scrollup();
 	});

@@ -22,6 +22,9 @@ try {
     var options = new google.search.DrawOptions();
     options.setSearchFormRoot('cse-search-form');
     customSearchControl.draw('cse', options);
+	$(".gsc-input").attr("x-webkit-speech", "x-webkit-speech");
+	$(".gsc-input").attr("speech", "speech");
+	$(".gsst_a").parent().parent().hide();
     customSearchControl.setSearchStartingCallback(null, function(searchControl, searcher) {
         setVisible("search"); // called early because the search bar is drawn early
         if (State.query != searchControl.input.value) {
