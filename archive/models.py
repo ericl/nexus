@@ -40,6 +40,10 @@ class PDF(models.Model):
     parent = models.ForeignKey('Issue')
 
     @ignore_errors
+    def calculate_mini_url(self):
+        return pdf_to_thumbnail(self.pdf.path, 75)
+
+    @ignore_errors
     def calculate_thumbnail_url(self):
         return pdf_to_thumbnail(self.pdf.path, 250)
 

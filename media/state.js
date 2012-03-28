@@ -16,7 +16,7 @@ try {
 	google.setOnLoadCallback(function() {
 		searchControl = new google.search.SearchControl();
 		var siteSearch = new google.search.WebSearch();
-		siteSearch.setSiteRestriction("http://nexus.webfactional.com");
+		siteSearch.setSiteRestriction("http://wvnexus.org");
 		siteSearch.setUserDefinedLabel("The Nexus");
 		var options = new google.search.SearcherOptions();
 		options.setRoot(document.getElementById("search_results"));

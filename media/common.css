@@ -106,7 +106,7 @@ a:hover {
   text-decoration: underline;
 }
 
-a:hover {
+#results_header a:hover {
   text-decoration: none !important;
 }
 
