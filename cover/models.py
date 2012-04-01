@@ -69,6 +69,11 @@ class Author(models.Model):
         ordering = ('retired', 'name', 'id')
 
 class AuthorAdminForm(forms.ModelForm):
+    def clean_name(self):
+        if 'courtesy' in self.cleaned_data['name'].lower():
+            raise forms.ValidationError("Don't include 'courtesy of'. This is inserted programmatically for authors who are not staff members.")
+        return self.cleaned_data['name']
+
     def clean_grouping(self):
         if self.instance in self.cleaned_data['grouping']:
             raise forms.ValidationError("Cannot be subset of '%s'." % self.instance)
