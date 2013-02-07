@@ -1,4 +1,4 @@
-#!/usr/bin/env python2.5
+#!/usr/local/bin/python2.5
 #
 # Periodic job that runs to associate Articles with Issues.
 # This is necessary because often articles are posted

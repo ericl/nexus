@@ -293,6 +293,8 @@ class ArticleAdminForm(forms.ModelForm):
         if images and tags and image_centric is not None:
             for image in images:
                 fulltext = self.cleaned_data.get('fulltext','')
+                if len(fulltext) < 200:
+                    image_centric = True
                 if not re.search(r'\[\[[a-z:]*%s]]' % image.slug, fulltext):
                     self.cleaned_data['fulltext'] = '[[auto:' + autoclass(image, tags, image_centric) + image.slug + ']]\r\n' + fulltext
                 elif re.search(r'\[\[auto:[a-z:]*%s]]' % image.slug, fulltext):

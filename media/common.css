@@ -2,6 +2,10 @@
   margin-top: 0 !important;
 }
 
+.gsc-input {
+  background-color: transparent !important;
+}
+
 #infoboxall {
   margin-top: 5px;
 }

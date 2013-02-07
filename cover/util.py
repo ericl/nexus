@@ -11,6 +11,8 @@ def visible(x):
     return x.filter(date__lte=date.today())
 
 def pagesof(page, pages, adjacent_pages=3):
+    if page > 100 - adjacent_pages:
+        adjacent_pages -= 1
     ret = [n for n in range(page - adjacent_pages, page + adjacent_pages + 1) if n > 0 and n <= pages]
     while len(ret) < adjacent_pages*2+1 and ret[-1] < pages:
         ret.append(ret[-1]+1)
